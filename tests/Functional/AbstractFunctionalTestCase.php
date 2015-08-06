@@ -25,7 +25,7 @@ class AbstractFunctionalTestCase extends PHPUnit_Framework_TestCase
      */
     protected function assertErrors($expectedErrorsAsArray, $filename, $message = '')
     {
-        $filename       = dirname(__DIR__).'/fixtures/'.$filename;
+        $filename = dirname(__DIR__).'/fixtures/'.$filename;
         $expectedErrors = new ErrorCollection();
 
         $parser = new Parser();

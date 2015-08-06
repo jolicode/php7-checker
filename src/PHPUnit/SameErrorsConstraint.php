@@ -65,7 +65,8 @@ class SameErrorsConstraint extends \PHPUnit_Framework_Constraint
      *
      * @return string
      */
-    private function exportErrors(ErrorCollection $errors) {
+    private function exportErrors(ErrorCollection $errors)
+    {
         $string = '';
 
         if (count($errors) < 1) {
