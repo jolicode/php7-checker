@@ -1,0 +1,30 @@
+{
+    "name": "jolicode/php7-checker",
+    "description": "Detect parts of your code that should be updated to be PHP7 compatible",
+    "keywords": ["php7", "check", "compatible"],
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Loïck Piera",
+            "email": "pyrech@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Joli\\Php7Checker\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Joli\\Php7Checker\\tests\\": "tests/"
+        }
+    },
+    "require": {
+        "nikic/php-parser": "^1.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~4.5",
+        "fabpot/php-cs-fixer": "^1.10"
+    }
+}
