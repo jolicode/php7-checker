@@ -56,6 +56,7 @@ class Factory
         if (empty($this->checkers)) {
             $checkersFQCN = [
                 'Joli\Php7Checker\Checker\TypeReservedChecker',
+                'Joli\Php7Checker\Checker\Php4ConstructorChecker',
             ];
 
             foreach ($checkersFQCN as $fqcn) {
