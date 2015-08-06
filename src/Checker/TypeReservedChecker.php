@@ -10,7 +10,7 @@
  */
 namespace Joli\Php7Checker\Checker;
 
-use Joli\Php7Checker\Error;
+use Joli\Php7Checker\Error\Error;
 use PhpParser\Node;
 use PhpParser\Node\Stmt;
 

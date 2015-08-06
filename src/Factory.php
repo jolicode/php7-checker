@@ -11,6 +11,7 @@
 namespace Joli\Php7Checker;
 
 use Joli\Php7Checker\Checker\CheckerInterface;
+use Joli\Php7Checker\Error\ErrorCollection;
 
 class Factory
 {

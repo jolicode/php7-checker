@@ -10,8 +10,8 @@
  */
 namespace Joli\Php7Checker\PHPUnit;
 
-use Joli\Php7Checker\Error;
-use Joli\Php7Checker\ErrorCollection;
+use Joli\Php7Checker\Error\Error;
+use Joli\Php7Checker\Error\ErrorCollection;
 
 class SameErrorsConstraint extends \PHPUnit_Framework_Constraint
 {

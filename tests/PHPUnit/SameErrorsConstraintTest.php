@@ -11,8 +11,8 @@
 
 namespace Joli\Php7Checker\tests\PHPUnit;
 
-use Joli\Php7Checker\Error;
-use Joli\Php7Checker\ErrorCollection;
+use Joli\Php7Checker\Error\Error;
+use Joli\Php7Checker\Error\ErrorCollection;
 use Joli\Php7Checker\PHPUnit\SameErrorsConstraint;
 
 class SameErrorsConstraintTest extends \PHPUnit_Framework_TestCase

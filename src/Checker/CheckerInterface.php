@@ -10,7 +10,7 @@
  */
 namespace Joli\Php7Checker\Checker;
 
-use Joli\Php7Checker\ErrorCollection;
+use Joli\Php7Checker\Error\ErrorCollection;
 use Joli\Php7Checker\ParserContext;
 use PhpParser\NodeVisitor;
 

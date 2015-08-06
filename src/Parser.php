@@ -10,6 +10,7 @@
  */
 namespace Joli\Php7Checker;
 
+use Joli\Php7Checker\Error\ErrorCollection;
 use PhpParser\Error as PhpParserError;
 use PhpParser\Lexer\Emulative;
 use PhpParser\NodeTraverser;

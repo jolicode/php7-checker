@@ -10,8 +10,8 @@
  */
 namespace Joli\Php7Checker\tests\Functional;
 
-use Joli\Php7Checker\Error;
-use Joli\Php7Checker\ErrorCollection;
+use Joli\Php7Checker\Error\Error;
+use Joli\Php7Checker\Error\ErrorCollection;
 use Joli\Php7Checker\Parser;
 use Joli\Php7Checker\PHPUnit\SameErrorsConstraint;
 use PHPUnit_Framework_TestCase;

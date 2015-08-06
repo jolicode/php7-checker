@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Joli\Php7Checker;
+namespace Joli\Php7Checker\Error;
 
 /**
  * A collection of Errors.
