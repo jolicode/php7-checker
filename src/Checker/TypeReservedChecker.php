@@ -25,7 +25,7 @@ use PhpParser\Node\Stmt;
  */
 class TypeReservedChecker extends AbstractChecker
 {
-    private static $reservedTypes = [
+    private static $reservedTypes = array(
         'int',
         'float',
         'bool',
@@ -37,7 +37,7 @@ class TypeReservedChecker extends AbstractChecker
         'object',
         'mixed',
         'numeric',
-    ];
+    );
 
     /**
      * {@inheritdoc}
@@ -79,14 +79,12 @@ class TypeReservedChecker extends AbstractChecker
     {
         $name = strtolower($name);
 
-        foreach (self::$reservedTypes as $type) {
-            if ($name === $type) {
-                $this->errorCollection->add(new Error(
-                    $this->parserContext->getFilename(),
-                    $line,
-                    sprintf($message, $type)
-                ));
-            }
+        if (in_array($name, self::$reservedTypes)) {
+            $this->errorCollection->add(new Error(
+                $this->parserContext->getFilename(),
+                $line,
+                sprintf($message, $name)
+            ));
         }
     }
 }
