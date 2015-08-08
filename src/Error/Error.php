@@ -23,20 +23,25 @@ class Error
     private $line;
 
     /** @var string */
-    private $info;
+    private $message;
+
+    /** @var string */
+    private $help;
 
     /**
      * Error constructor.
      *
      * @param string $filename
      * @param int    $line
-     * @param string $info
+     * @param string $message
+     * @param string $help
      */
-    public function __construct($filename, $line, $info)
+    public function __construct($filename, $line, $message, $help = '')
     {
         $this->filename = $filename;
         $this->line = $line;
-        $this->info = $info;
+        $this->message = $message;
+        $this->help = $help;
     }
 
     /**
@@ -58,8 +63,16 @@ class Error
     /**
      * @return string
      */
-    public function getInfo()
+    public function getMessage()
     {
-        return $this->info;
+        return $this->message;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHelp()
+    {
+        return $this->help;
     }
 }

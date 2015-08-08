@@ -58,7 +58,7 @@ class SameErrorsConstraint extends \PHPUnit_Framework_Constraint
     {
         return $expectedError->getFilename() === $actualError->getFilename()
             && $expectedError->getLine() === $actualError->getLine()
-            && $expectedError->getInfo() === $actualError->getInfo();
+            && $expectedError->getMessage() === $actualError->getMessage();
     }
 
     /**
@@ -77,7 +77,7 @@ class SameErrorsConstraint extends \PHPUnit_Framework_Constraint
             /** @var Error $error */
             foreach ($errors as $error) {
                 $string .= '  > '.$error->getFilename().':'.$error->getLine().PHP_EOL
-                          .'        "'.$error->getInfo().'"'.PHP_EOL;
+                          .'        "'.$error->getMessage().'"'.PHP_EOL;
             }
         }
 

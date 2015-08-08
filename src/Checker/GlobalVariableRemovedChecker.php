@@ -19,8 +19,9 @@ use PhpParser\Node;
  */
 class GlobalVariableRemovedChecker extends AbstractChecker
 {
+    /** @var string[string] */
     private static $removedGlobals = array(
-        'HTTP_RAW_POST_DATA',
+        'HTTP_RAW_POST_DATA' => 'You can use the php://input stream instead',
     );
 
     /** @var bool */
@@ -79,11 +80,12 @@ class GlobalVariableRemovedChecker extends AbstractChecker
      */
     private function checkIfGlobalVariableWasRemoved($variableName, $line)
     {
-        if (in_array($variableName, self::$removedGlobals)) {
+        if (array_key_exists($variableName, self::$removedGlobals)) {
             $this->errorCollection->add(new Error(
                 $this->parserContext->getFilename(),
                 $line,
-                sprintf('The global variable "$%s" was removed', $variableName)
+                sprintf('The global variable "$%s" was removed', $variableName),
+                self::$removedGlobals[$variableName]
             ));
         }
     }
