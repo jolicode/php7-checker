@@ -23,11 +23,14 @@ use PhpParser\Node\Stmt;
  * global namespace.
  *
  * The related RFC is: https://wiki.php.net/rfc/remove_php4_constructors
+ *
+ * Classes cannot be nested with Zend's PHP so there is no need to keep
+ * information about the current class in a heap.
  */
 class Php4ConstructorChecker extends AbstractChecker
 {
     /** @var string */
-    private $currentClass;
+    private $currentClassName;
 
     /** @var int */
     private $php4ConstructorLine;
@@ -46,7 +49,7 @@ class Php4ConstructorChecker extends AbstractChecker
      */
     public function beforeTraverse(array $nodes)
     {
-        $this->currentClass = '';
+        $this->currentClassName = '';
         $this->hasPhp4Constructor = null;
         $this->hasNamespace = false;
         $this->hasPhp4Constructor = false;
@@ -58,9 +61,9 @@ class Php4ConstructorChecker extends AbstractChecker
      */
     public function enterNode(Node $node)
     {
-        // Check for the name of the class
+        // Check for the name of the current class
         if ($node instanceof Stmt\Class_) {
-            $this->currentClass = $node->name;
+            $this->currentClassName = $node->name;
         }
     }
 
@@ -76,12 +79,12 @@ class Php4ConstructorChecker extends AbstractChecker
             }
         }
 
-        // Check for class method
+        // Check for constructors
         if ($node instanceof Stmt\ClassMethod) {
             if ($node->name === '__construct') {
                 $this->hasPhp5Constructor = true;
             }
-            if ($this->currentClass && $node->name === $this->currentClass) {
+            if ($this->currentClassName && $node->name === $this->currentClassName) {
                 $this->hasPhp4Constructor = true;
                 $this->php4ConstructorLine = $node->getLine();
             }
