@@ -14,7 +14,10 @@ namespace Joli\Php7Checker\Checker;
 use Joli\Php7Checker\Error\Error;
 use PhpParser\Node;
 
-class GlobalVariableRemoved extends AbstractChecker
+/**
+ * PHP 7 removed the pre-defined variable HTTP_RAW_POST_DATA.
+ */
+class GlobalVariableRemovedChecker extends AbstractChecker
 {
     private static $removedGlobals = array(
         'HTTP_RAW_POST_DATA',

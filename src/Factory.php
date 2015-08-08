@@ -59,7 +59,7 @@ class Factory
                 'Joli\Php7Checker\Checker\TypeReservedChecker',
                 'Joli\Php7Checker\Checker\Php4ConstructorChecker',
                 'Joli\Php7Checker\Checker\FunctionParametersSameNameChecker',
-                'Joli\Php7Checker\Checker\GlobalVariableRemoved',
+                'Joli\Php7Checker\Checker\GlobalVariableRemovedChecker',
             ];
 
             foreach ($checkersFQCN as $fqcn) {
