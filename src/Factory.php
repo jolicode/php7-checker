@@ -58,6 +58,7 @@ class Factory
             $checkersFQCN = [
                 'Joli\Php7Checker\Checker\TypeReservedChecker',
                 'Joli\Php7Checker\Checker\Php4ConstructorChecker',
+                'Joli\Php7Checker\Checker\FunctionParametersSameNameChecker',
             ];
 
             foreach ($checkersFQCN as $fqcn) {
