@@ -1,0 +1,7 @@
+<?php
+
+namespace {
+    trait IntlChar
+    {
+    }
+}
