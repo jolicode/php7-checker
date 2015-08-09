@@ -1,0 +1,3 @@
+<?php
+
+strpos('haystack', 'needle');
