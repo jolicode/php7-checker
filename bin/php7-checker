@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+<?php
+
+set_error_handler(function ($severity, $message, $file, $line) {
+    if ($severity & error_reporting()) {
+        throw new ErrorException($message, 0, $severity, $file, $line);
+    }
+});
+
+require_once __DIR__.'/../vendor/autoload.php';
+
+use Joli\Php7Checker\Console\Application;
+
+$application = new Application();
+$application->run();

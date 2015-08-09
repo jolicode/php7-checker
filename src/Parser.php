@@ -22,6 +22,8 @@ use PhpParser\Parser as PhpParser;
 
 class Parser
 {
+    const VERSION = '0.1.0';
+    
     /** @var PhpParser */
     private $parser;
 
@@ -69,11 +71,13 @@ class Parser
             // Keep the context up to date
             $this->parserContext->setFilename($file->getRealPath());
 
-            // Parse the file content
-            $stmts = $this->parser->parse($file->fread($file->getSize()));
+            if ($file->getSize() > 0) {
+                // Parse the file content
+                $stmts = $this->parser->parse($file->fread($file->getSize()));
 
-            // Traverse the statements
-            $this->traverser->traverse($stmts);
+                // Traverse the statements
+                $this->traverser->traverse($stmts);
+            }
         } catch (PhpParserError $e) {
             echo 'Parse Error: ', $e->getMessage();
         }
