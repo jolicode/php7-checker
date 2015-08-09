@@ -38,6 +38,7 @@ class FunctionRemovedChecker extends AbstractChecker
         'mcrypt_ofb' => 'Use the mcrypt_decrypt() function with a MCRYPT_MODE_* constant instead',
 
         'datefmt_set_timezone_id' => 'Use the datefmt_set_timezone() function instead',
+        // Cannot checks call of class method
         //'IntlDateFormatter::setTimeZoneID' => 'Use the IntlDateFormatter::setTimeZone() function instead',
 
         'set_magic_quotes_runtime' => '',
@@ -45,15 +46,16 @@ class FunctionRemovedChecker extends AbstractChecker
 
         'set_socket_blocking' => 'Use the stream_set_blocking() function instead',
 
-        'dl' => 'The function was removed on fpm-fcgi',
+        // dl() can no longer be used in PHP-FPM but it remains functional in the CLI and embed SAPIs.
+        //'dl' => 'The function was removed on fpm-fcgi',
 
-        'imagepsbbox' => 'The T1Lib support was removed',
-        'imagepsencodefont' => 'The T1Lib support was removed',
-        'imagepsextendedfont' => 'The T1Lib support was removed',
-        'imagepsfreefont' => 'The T1Lib support was removed',
-        'imagepsloadfont' => 'The T1Lib support was removed',
-        'imagepsslantfont' => 'The T1Lib support was removed',
-        'imagepstext' => 'The T1Lib support was removed',
+        'imagepsbbox' => 'Support for PostScript Type1 fonts has been removed from the GD extension, you should use TrueType fonts and their associated functions instead',
+        'imagepsencodefont' => 'Support for PostScript Type1 fonts has been removed from the GD extension, you should use TrueType fonts and their associated functions instead',
+        'imagepsextendedfont' => 'Support for PostScript Type1 fonts has been removed from the GD extension, you should use TrueType fonts and their associated functions instead',
+        'imagepsfreefont' => 'Support for PostScript Type1 fonts has been removed from the GD extension, you should use TrueType fonts and their associated functions instead',
+        'imagepsloadfont' => 'Support for PostScript Type1 fonts has been removed from the GD extension, you should use TrueType fonts and their associated functions instead',
+        'imagepsslantfont' => 'Support for PostScript Type1 fonts has been removed from the GD extension, you should use TrueType fonts and their associated functions instead',
+        'imagepstext' => 'Support for PostScript Type1 fonts has been removed from the GD extension, you should use TrueType fonts and their associated functions instead',
 
         'ereg_replace' => 'The ereg extension was removed, you should use the PCRE extension and preg_*() functions instead',
         'ereg' => 'The ereg extension was removed, you should use the PCRE extension and preg_*() functions instead',
