@@ -17,7 +17,7 @@ use PhpParser\Node\Stmt;
 
 /**
  * PHP 7 prohibits the usage of some types as class, interface and trait names.
- * It also prevents them from being used in namespaces.
+ * It also prevents them from being used in class_alias().
  *
  * The related RFC are:
  * - https://wiki.php.net/rfc/reserve_more_types_in_php_7
@@ -33,6 +33,9 @@ class TypeReservedChecker extends AbstractChecker
         'true',
         'false',
         'null',
+
+        // The following types are just reserved but do not yet throw an error.
+        // Should we allow to use them? Let's said no for now ;)
         'resource',
         'object',
         'mixed',
@@ -52,21 +55,26 @@ class TypeReservedChecker extends AbstractChecker
                 $node->getLine(),
                 '"%s" is now a reserved type and can no longer be used as the name of a class/interface/trait'
             );
-        } elseif ($node instanceof Stmt\Namespace_) {
-            $parts = explode('\\', $node->name);
-            foreach ($parts as $part) {
-                $this->check(
-                    $part,
-                    $node->getLine(),
-                    '"%s" is now a reserved type and can no longer be used in a namespace'
-                );
-            }
         } elseif ($node instanceof Stmt\Use_ && $node->type === Stmt\Use_::TYPE_NORMAL) {
             $this->check(
                 $node->uses[0]->alias,
                 $node->getLine(),
                 '"%s" is now a reserved type and can no longer be used as an alias'
             );
+        } elseif ($node instanceof Node\Expr\FuncCall && $node->name->parts === array('class_alias')) {
+            $args = $node->args;
+
+            if (!empty($args[1]) && $args[1]->value instanceof Node\Scalar\String_) {
+                $fqcn = $args[1]->value->value;
+                $parts = explode('\\', $fqcn);
+                $className = end($parts);
+
+                $this->check(
+                    $className,
+                    $node->getLine(),
+                    '"%s" is now a reserved type and can no longer be used in class_alias()'
+                );
+            }
         }
     }
 
