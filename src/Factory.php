@@ -64,6 +64,7 @@ class Factory
                 'Joli\Php7Checker\Checker\ListHandlingChangedChecker',
                 'Joli\Php7Checker\Checker\NewAssignmentByReferenceChecker',
                 'Joli\Php7Checker\Checker\ClassAddedChecker',
+                'Joli\Php7Checker\Checker\FunctionAddedChecker',
             ];
 
             foreach ($checkersFQCN as $fqcn) {
