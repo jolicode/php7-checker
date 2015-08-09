@@ -14,7 +14,6 @@ namespace Joli\Php7Checker\Checker;
 use Joli\Php7Checker\Error\Error;
 use PhpParser\Node;
 
-
 /**
  * PHP 7 no longer allows function to have more than one parameter with the
  * same name.
