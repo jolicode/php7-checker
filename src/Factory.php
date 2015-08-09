@@ -61,6 +61,7 @@ class Factory
                 'Joli\Php7Checker\Checker\FunctionParametersSameNameChecker',
                 'Joli\Php7Checker\Checker\GlobalVariableRemovedChecker',
                 'Joli\Php7Checker\Checker\FunctionRemovedChecker',
+                'Joli\Php7Checker\Checker\ListHandlingChangedChecker',
             ];
 
             foreach ($checkersFQCN as $fqcn) {
