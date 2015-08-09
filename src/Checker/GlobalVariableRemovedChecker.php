@@ -62,7 +62,9 @@ class GlobalVariableRemovedChecker extends AbstractChecker
 
         // Check if the variable is used from the $GLOBALS variable
         if ($node instanceof Node\Expr\ArrayDimFetch) {
-            if ($node->var->name === 'GLOBALS' && $node->dim instanceof Node\Scalar\String_) {
+            if ($node->var instanceof Node\Expr\Variable
+                && $node->var->name === 'GLOBALS'
+                && $node->dim instanceof Node\Scalar\String_) {
                 $this->checkIfGlobalVariableWasRemoved($node->dim->value, $node->dim->getLine());
             }
         }

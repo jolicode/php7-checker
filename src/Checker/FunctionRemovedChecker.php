@@ -151,8 +151,8 @@ class FunctionRemovedChecker extends AbstractChecker
      */
     public function leaveNode(Node $node)
     {
-        if ($node instanceof Node\Expr\FuncCall) {
-            $name = strtolower($node->name);
+        if ($node instanceof Node\Expr\FuncCall && $node->name instanceof Node\Name) {
+            $name = strtolower(end($node->name->parts));
             if (array_key_exists($name, self::$removedFunctions)) {
                 $this->errorCollection->add(new Error(
                     $this->parserContext->getFilename(),

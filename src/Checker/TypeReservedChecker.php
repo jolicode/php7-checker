@@ -61,7 +61,9 @@ class TypeReservedChecker extends AbstractChecker
                 $node->getLine(),
                 '"%s" is now a reserved type and can no longer be used as an alias'
             );
-        } elseif ($node instanceof Node\Expr\FuncCall && $node->name->parts === array('class_alias')) {
+        } elseif ($node instanceof Node\Expr\FuncCall
+            && $node->name instanceof Node\Name
+            && $node->name->parts === array('class_alias')) {
             $args = $node->args;
 
             if (!empty($args[1]) && $args[1]->value instanceof Node\Scalar\String_) {
