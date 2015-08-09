@@ -12,71 +12,36 @@
 namespace Joli\Php7Checker;
 
 use Joli\Php7Checker\Checker\CheckerInterface;
-use Joli\Php7Checker\Error\ErrorCollection;
 
 class Factory
 {
-    /** @var ParserContext */
-    private $parserContext;
-
-    /** @var ErrorCollection */
-    private $errorCollection;
-
-    /** @var CheckerInterface[] */
-    private $checkers = array();
-
-    /**
-     * @return ParserContext
-     */
-    public function getParserContext()
-    {
-        if (!$this->parserContext) {
-            $this->parserContext = new ParserContext();
-        }
-
-        return $this->parserContext;
-    }
-
-    /**
-     * @return ErrorCollection
-     */
-    public function getErrorCollection()
-    {
-        if (!$this->errorCollection) {
-            $this->errorCollection = new ErrorCollection();
-        }
-
-        return $this->errorCollection;
-    }
-
     /**
      * @return CheckerInterface[]
      */
-    public function getCheckers()
+    public static function createDefaultCheckers()
     {
-        if (empty($this->checkers)) {
-            $checkersFQCN = [
-                'Joli\Php7Checker\Checker\TypeReservedChecker',
-                'Joli\Php7Checker\Checker\Php4ConstructorChecker',
-                'Joli\Php7Checker\Checker\FunctionParametersSameNameChecker',
-                'Joli\Php7Checker\Checker\GlobalVariableRemovedChecker',
-                'Joli\Php7Checker\Checker\FunctionRemovedChecker',
-                'Joli\Php7Checker\Checker\ListHandlingChangedChecker',
-                'Joli\Php7Checker\Checker\NewAssignmentByReferenceChecker',
-                'Joli\Php7Checker\Checker\ClassAddedChecker',
-                'Joli\Php7Checker\Checker\FunctionAddedChecker',
-            ];
+        return array(
+            new \Joli\Php7Checker\Checker\TypeReservedChecker(),
+            new \Joli\Php7Checker\Checker\Php4ConstructorChecker(),
+            new \Joli\Php7Checker\Checker\FunctionParametersSameNameChecker(),
+            new \Joli\Php7Checker\Checker\GlobalVariableRemovedChecker(),
+            new \Joli\Php7Checker\Checker\FunctionRemovedChecker(),
+            new \Joli\Php7Checker\Checker\ListHandlingChangedChecker(),
+            new \Joli\Php7Checker\Checker\NewAssignmentByReferenceChecker(),
+            new \Joli\Php7Checker\Checker\ClassAddedChecker(),
+            new \Joli\Php7Checker\Checker\FunctionAddedChecker(),
+        );
+    }
 
-            foreach ($checkersFQCN as $fqcn) {
-                /** @var CheckerInterface $checker */
-                $checker = new $fqcn();
-                $checker->setParserContext($this->getParserContext());
-                $checker->setErrorCollection($this->getErrorCollection());
+    /**
+     * @return Parser
+     */
+    public static function createParser()
+    {
+        $parser = new Parser(
+            static::createDefaultCheckers()
+        );
 
-                $this->checkers[] = $checker;
-            }
-        }
-
-        return $this->checkers;
+        return $parser;
     }
 }

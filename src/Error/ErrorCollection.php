@@ -58,6 +58,14 @@ class ErrorCollection implements \Countable, \IteratorAggregate
     }
 
     /**
+     * Reset the errors list.
+     */
+    public function reset()
+    {
+        $this->errors = array();
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getIterator()

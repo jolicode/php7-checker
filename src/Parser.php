@@ -11,6 +11,7 @@
 
 namespace Joli\Php7Checker;
 
+use Joli\Php7Checker\Checker\CheckerInterface;
 use Joli\Php7Checker\Error\ErrorCollection;
 use PhpParser\Error as PhpParserError;
 use PhpParser\Lexer\Emulative;
@@ -18,14 +19,14 @@ use PhpParser\NodeTraverser;
 use PhpParser\NodeTraverserInterface;
 use PhpParser\NodeVisitor\NameResolver;
 use PhpParser\Parser as PhpParser;
-use RecursiveDirectoryIterator;
-use RecursiveIteratorIterator;
-use RegexIterator;
 
 class Parser
 {
-    /** @var Factory */
-    private $factory;
+    /** @var PhpParser */
+    private $parser;
+
+    /** @var NodeTraverserInterface */
+    private $traverser;
 
     /** @var ParserContext */
     private $parserContext;
@@ -33,64 +34,43 @@ class Parser
     /** @var ErrorCollection */
     private $errorCollection;
 
-    /** @var NodeTraverserInterface */
-    private $traverser;
-
-    /** @var PhpParser */
-    private $parser;
-
-    public function __construct(Factory $factory = null)
-    {
-        if (!$factory) {
-            $factory = new Factory();
-        }
-
-        $this->factory = $factory;
-        $this->init();
-    }
-
-    private function init()
+    /**
+     * @param CheckerInterface[] $checkers
+     */
+    public function __construct(array $checkers)
     {
         $this->parser = new PhpParser(new Emulative());
         $this->traverser = new NodeTraverser();
+        $this->parserContext = new ParserContext();
+        $this->errorCollection = new ErrorCollection();
 
-        // Ensure the maximum of name (class, interface, etc) will be resolved to ease process
+        // Resolve fully qualified name (class, interface, function, etc) to ease some process
         $this->traverser->addVisitor(new NameResolver());
 
-        // Register all the checker that should visit the files
-        foreach ($this->factory->getCheckers() as $checker) {
+        // Register all the checker that should visit the parsed files
+        foreach ($checkers as $checker) {
+            $checker->setParserContext($this->parserContext);
+            $checker->setErrorCollection($this->errorCollection);
             $this->traverser->addVisitor($checker);
-        }
-
-        $this->parserContext = $this->factory->getParserContext();
-        $this->errorCollection = $this->factory->getErrorCollection();
-    }
-
-    public function parseDirectory($directory)
-    {
-        // Iterate over all .php files in the directory
-        $files = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($directory));
-        $files = new RegexIterator($files, '/\.php$/');
-
-        foreach ($files as $file) {
-            $this->parseFile($file);
         }
     }
 
     /**
-     * @param $filename
+     * Parse the given file to check potential errors.
+     *
+     * @param \SplFileInfo $file
      */
-    public function parseFile($filename)
+    public function parse(\SplFileInfo $file)
     {
         try {
+            // Open the file
+            $file = $file->openFile();
+
             // Keep the context up to date
-            $this->parserContext->setFilename($filename);
+            $this->parserContext->setFilename($file->getRealPath());
 
-            // Read the file that should be checked
-            $code = file_get_contents($filename);
-
-            // Parse the code
-            $stmts = $this->parser->parse($code);
+            // Parse the file content
+            $stmts = $this->parser->parse($file->fread($file->getSize()));
 
             // Traverse the statements
             $this->traverser->traverse($stmts);

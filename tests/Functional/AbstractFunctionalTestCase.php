@@ -11,6 +11,7 @@
 
 namespace Joli\Php7Checker\tests\Functional;
 
+use Joli\Php7Checker\Factory;
 use Joli\Php7Checker\Error\Error;
 use Joli\Php7Checker\Error\ErrorCollection;
 use Joli\Php7Checker\Parser;
@@ -19,6 +20,17 @@ use PHPUnit_Framework_TestCase;
 
 class AbstractFunctionalTestCase extends PHPUnit_Framework_TestCase
 {
+    /** @var Parser */
+    private static $parser;
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function setUpBeforeClass()
+    {
+        self::$parser = Factory::createParser();
+    }
+
     /**
      * @param array  $expectedErrorsAsArray
      * @param string $filename
@@ -26,16 +38,18 @@ class AbstractFunctionalTestCase extends PHPUnit_Framework_TestCase
      */
     protected function assertErrors($expectedErrorsAsArray, $filename, $message = '')
     {
+        $errorCollection = self::$parser->getErrorCollection();
         $filename = dirname(__DIR__).'/fixtures/'.$filename;
+        $file = new \SplFileInfo($filename);
+
+        $errorCollection->reset();
+        self::$parser->parse($file);
+
         $expectedErrors = new ErrorCollection();
-
-        $parser = new Parser();
-        $parser->parseFile($filename);
-
         foreach ($expectedErrorsAsArray as $errorAsArray) {
             $expectedErrors->add(new Error($filename, $errorAsArray[0], $errorAsArray[1]));
         }
 
-        self::assertThat($parser->getErrorCollection(), new SameErrorsConstraint($expectedErrors), $message);
+        self::assertThat($errorCollection, new SameErrorsConstraint($expectedErrors), $message);
     }
 }
