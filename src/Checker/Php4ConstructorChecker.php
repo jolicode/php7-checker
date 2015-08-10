@@ -24,88 +24,47 @@ use PhpParser\Node\Stmt;
  * global namespace.
  *
  * The related RFC is: https://wiki.php.net/rfc/remove_php4_constructors
- *
- * Classes cannot be nested with Zend's PHP so there is no need to keep
- * information about the current class in a heap.
  */
 class Php4ConstructorChecker extends AbstractChecker
 {
-    /** @var string */
-    private $currentClassName;
-
-    /** @var int */
-    private $php4ConstructorLine;
-
-    /** @var bool */
-    private $hasNamespace;
-
-    /** @var bool */
-    private $hasPhp4Constructor;
-
-    /** @var bool */
-    private $hasPhp5Constructor;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function beforeTraverse(array $nodes)
-    {
-        $this->currentClassName = '';
-        $this->hasPhp4Constructor = null;
-        $this->hasNamespace = false;
-        $this->hasPhp4Constructor = false;
-        $this->hasPhp5Constructor = false;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function enterNode(Node $node)
-    {
-        // Check for the name of the current class
-        if ($node instanceof Stmt\Class_) {
-            $this->currentClassName = $node->name;
-        }
-    }
-
     /**
      * {@inheritdoc}
      */
     public function leaveNode(Node $node)
     {
-        // Check for namespaced code
-        if ($node instanceof Stmt\Namespace_) {
-            if ($node->name) {
-                $this->hasNamespace = true;
-            }
-        }
+        if ($node instanceof Stmt\Class_) {
+            $currentClassName = $node->name;
+            $hasNamespace = false;
+            $hasPhp4Constructor = false;
+            $hasPhp5Constructor = false;
+            $php4ConstructorLine = null;
 
-        // Check for constructors
-        if ($node instanceof Stmt\ClassMethod) {
-            if ($node->name === '__construct') {
-                $this->hasPhp5Constructor = true;
+            if (count($node->namespacedName->parts) > 1) {
+                $hasNamespace = true;
             }
-            if ($this->currentClassName && $node->name === $this->currentClassName) {
-                $this->hasPhp4Constructor = true;
-                $this->php4ConstructorLine = $node->getLine();
-            }
-        }
-    }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function afterTraverse(array $nodes)
-    {
-        if (!$this->hasNamespace
-            && $this->hasPhp4Constructor
-            && !$this->hasPhp5Constructor) {
-            $this->errorCollection->add(new Error(
-                $this->parserContext->getFilename(),
-                $this->php4ConstructorLine,
-                'Using a PHP 4 constructor is now deprecated.',
-                'You should use the __construct method instead.'
-            ));
+            foreach ($node->stmts as $stmt) {
+                // Check for constructors
+                if ($stmt instanceof Stmt\ClassMethod) {
+                    if ($stmt->name === '__construct') {
+                        $hasPhp5Constructor = true;
+                    }
+
+                    if ($stmt->name === $currentClassName) {
+                        $hasPhp4Constructor = true;
+                        $php4ConstructorLine = $stmt->getLine();
+                    }
+                }
+            }
+
+            if (!$hasNamespace && $hasPhp4Constructor && !$hasPhp5Constructor) {
+                $this->errorCollection->add(new Error(
+                    $this->parserContext->getFilename(),
+                    $php4ConstructorLine,
+                    'Using a PHP 4 constructor is now deprecated.',
+                    'You should use the __construct() method instead.'
+                ));
+            }
         }
     }
 }
