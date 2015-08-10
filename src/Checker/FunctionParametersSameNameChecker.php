@@ -44,7 +44,7 @@ class FunctionParametersSameNameChecker extends AbstractChecker
                 $this->errorCollection->add(new Error(
                     $this->parserContext->getFilename(),
                     $node->getLine(),
-                    'Functions can\'t have more than one parameter with the same name'
+                    'Functions can no longer have more than one parameter with the same name.'
                 ));
             }
         }

@@ -26,11 +26,11 @@ class ClassAddedTest extends AbstractFunctionalTestCase
     public function testItFindsErrorWhenUsingNotNamespacedClassWithNameIdenticalToNewClasses()
     {
         $this->assertErrors([
-            [3, '"Throwable" cannot be used as class/interface/trait name'],
+            [3, '"Throwable" cannot be used as class/interface/trait name.'],
         ], 'Checker/ClassAdded/Throwable.php');
 
         $this->assertErrors([
-            [4, '"IntlChar" cannot be used as class/interface/trait name'],
+            [4, '"IntlChar" cannot be used as class/interface/trait name.'],
         ], 'Checker/ClassAdded/IntlChar.php');
     }
 }

@@ -26,11 +26,11 @@ class NewAssignmentByReferenceTest extends AbstractFunctionalTestCase
     public function testItFindsErrorWhenUsingNewAssignmentByReference()
     {
         $this->assertErrors([
-            [3, 'New objects cannot be assigned by reference'],
+            [3, 'New objects cannot be assigned by reference.'],
         ], 'Checker/NewAssignmentByReference/test3.php');
 
         $this->assertErrors([
-            [5, 'New objects cannot be assigned by reference'],
+            [5, 'New objects cannot be assigned by reference.'],
         ], 'Checker/NewAssignmentByReference/test4.php');
     }
 }

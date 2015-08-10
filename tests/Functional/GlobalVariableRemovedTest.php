@@ -21,19 +21,19 @@ class GlobalVariableRemovedTest extends AbstractFunctionalTestCase
     public function testItFindsErrorsWhenUsingRemovedGlobalVariableInGlobalScope()
     {
         $this->assertErrors([
-            [3, 'The global variable "$HTTP_RAW_POST_DATA" was removed'],
+            [3, 'The global variable $HTTP_RAW_POST_DATA was removed.'],
         ], 'Checker/GlobalVariableRemoved/test2.php');
 
         $this->assertErrors([
-            [3, 'The global variable "$HTTP_RAW_POST_DATA" was removed'],
+            [3, 'The global variable $HTTP_RAW_POST_DATA was removed.'],
         ], 'Checker/GlobalVariableRemoved/test3.php');
 
         $this->assertErrors([
-            [3, 'The global variable "$HTTP_RAW_POST_DATA" was removed'],
+            [3, 'The global variable $HTTP_RAW_POST_DATA was removed.'],
         ], 'Checker/GlobalVariableRemoved/test4.php');
 
         $this->assertErrors([
-            [3, 'The global variable "$HTTP_RAW_POST_DATA" was removed'],
+            [3, 'The global variable $HTTP_RAW_POST_DATA was removed.'],
         ], 'Checker/GlobalVariableRemoved/test5.php');
     }
 
@@ -52,19 +52,19 @@ class GlobalVariableRemovedTest extends AbstractFunctionalTestCase
     public function testItFindsErrorsWhenUsingRemovedGlobalVariableInLocalScope()
     {
         $this->assertErrors([
-            [7, 'The global variable "$HTTP_RAW_POST_DATA" was removed'],
+            [7, 'The global variable $HTTP_RAW_POST_DATA was removed.'],
         ], 'Checker/GlobalVariableRemoved/test9.php');
 
         $this->assertErrors([
-            [7, 'The global variable "$HTTP_RAW_POST_DATA" was removed'],
+            [7, 'The global variable $HTTP_RAW_POST_DATA was removed.'],
         ], 'Checker/GlobalVariableRemoved/test10.php');
 
         $this->assertErrors([
-            [5, 'The global variable "$HTTP_RAW_POST_DATA" was removed'],
+            [5, 'The global variable $HTTP_RAW_POST_DATA was removed.'],
         ], 'Checker/GlobalVariableRemoved/test11.php');
 
         $this->assertErrors([
-            [5, 'The global variable "$HTTP_RAW_POST_DATA" was removed'],
+            [5, 'The global variable $HTTP_RAW_POST_DATA was removed.'],
         ], 'Checker/GlobalVariableRemoved/test12.php');
     }
 }

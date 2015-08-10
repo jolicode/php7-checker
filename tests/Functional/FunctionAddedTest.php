@@ -26,7 +26,7 @@ class FunctionAddedTest extends AbstractFunctionalTestCase
     public function testItFindsErrorWhenUsingNotNamespacedFunctionWithNameIdenticalToNewFunctions()
     {
         $this->assertErrors([
-            [3, '"random_int" cannot be used as function name'],
+            [3, '"random_int" cannot be used as function name.'],
         ], 'Checker/FunctionAdded/test3.php');
     }
 

@@ -22,7 +22,7 @@ class TypeReservedTest extends AbstractFunctionalTestCase
     public function testItFindsErrorWhenUsingReservedTypeAsClassName()
     {
         $this->assertErrors([
-            [5, '"object" is now a reserved type and can no longer be used as the name of a class/interface/trait'],
+            [5, '"object" is now a reserved type and can no longer be used as the name of a class/interface/trait.'],
         ], 'Checker/TypeReserved/Object.php');
     }
 
@@ -34,11 +34,11 @@ class TypeReservedTest extends AbstractFunctionalTestCase
     public function testItFindsErrorWhenUsingReservedTypeAsAlias()
     {
         $this->assertErrors([
-            [7, '"string" is now a reserved type and can no longer be used as an alias'],
+            [7, '"string" is now a reserved type and can no longer be used as an alias.'],
         ], 'Checker/TypeReserved/Foo.php');
 
         $this->assertErrors([
-            [3, '"int" is now a reserved type and can no longer be used as an alias'],
+            [3, '"int" is now a reserved type and can no longer be used as an alias.'],
         ], 'Checker/TypeReserved/Baz.php');
     }
 
@@ -50,7 +50,7 @@ class TypeReservedTest extends AbstractFunctionalTestCase
     public function testItFindsErrorWhenUsingReservedTypeInClassAlias()
     {
         $this->assertErrors([
-            [8, '"true" is now a reserved type and can no longer be used in class_alias()'],
+            [8, '"true" is now a reserved type and can no longer be used in class_alias().'],
         ], 'Checker/TypeReserved/Toto2.php');
     }
 }

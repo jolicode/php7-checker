@@ -42,8 +42,8 @@ class ListHandlingChangedChecker extends AbstractChecker
                 $this->errorCollection->add(new Error(
                     $this->parserContext->getFilename(),
                     $node->getLine(),
-                    'Empty list() assignments are no longer supported',
-                    'You should set at least one assignement in the list'
+                    'Empty list() assignments are no longer supported.',
+                    'You should set at least one assignment in the list.'
                 ));
             }
         }

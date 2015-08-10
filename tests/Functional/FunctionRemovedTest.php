@@ -21,7 +21,7 @@ class FunctionRemovedTest extends AbstractFunctionalTestCase
     public function testItFindsErrorWhenUsingRemovedFunction()
     {
         $this->assertErrors([
-            [5, 'Function call_user_method() was removed'],
+            [5, 'The function call_user_method() was removed.'],
         ], 'Checker/FunctionRemoved/test3.php');
     }
 
@@ -35,7 +35,7 @@ class FunctionRemovedTest extends AbstractFunctionalTestCase
     public function testItFindsErrorWhenUsingRemovedClassMethod()
     {
         $this->assertErrors([
-            [5, 'Function IntlDateFormatter::setTimeZoneId() was removed'],
+            [5, 'The function IntlDateFormatter::setTimeZoneId() was removed.'],
         ], 'Checker/FunctionRemoved/test4.php');
     }
     */

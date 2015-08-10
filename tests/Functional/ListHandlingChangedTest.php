@@ -22,15 +22,15 @@ class ListHandlingChangedTest extends AbstractFunctionalTestCase
     public function testItFindsErrorWhenUsingEmptyList()
     {
         $this->assertErrors([
-            [3, 'Empty list() assignments are no longer supported'],
+            [3, 'Empty list() assignments are no longer supported.'],
         ], 'Checker/ListHandlingChanged/test2.php');
 
         $this->assertErrors([
-            [3, 'Empty list() assignments are no longer supported'],
+            [3, 'Empty list() assignments are no longer supported.'],
         ], 'Checker/ListHandlingChanged/test3.php');
 
         $this->assertErrors([
-            [3, 'Empty list() assignments are no longer supported'],
+            [3, 'Empty list() assignments are no longer supported.'],
         ], 'Checker/ListHandlingChanged/test4.php');
     }
 }

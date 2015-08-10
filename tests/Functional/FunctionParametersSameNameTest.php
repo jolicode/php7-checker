@@ -21,15 +21,15 @@ class FunctionParametersSameNameTest extends AbstractFunctionalTestCase
     public function testItFindsErrorForFunctionWithParametersHavingSameName()
     {
         $this->assertErrors([
-            [3, 'Functions can\'t have more than one parameter with the same name'],
+            [3, 'Functions can no longer have more than one parameter with the same name.'],
         ], 'Checker/FunctionParametersSameName/test2.php');
 
         $this->assertErrors([
-            [3, 'Functions can\'t have more than one parameter with the same name'],
+            [3, 'Functions can no longer have more than one parameter with the same name.'],
         ], 'Checker/FunctionParametersSameName/test3.php');
 
         $this->assertErrors([
-            [3, 'Functions can\'t have more than one parameter with the same name'],
+            [3, 'Functions can no longer have more than one parameter with the same name.'],
         ], 'Checker/FunctionParametersSameName/test4.php');
     }
 
@@ -41,7 +41,7 @@ class FunctionParametersSameNameTest extends AbstractFunctionalTestCase
     public function testItFindsErrorForClassMethodWithParametersHavingSameName()
     {
         $this->assertErrors([
-            [5, 'Functions can\'t have more than one parameter with the same name'],
+            [5, 'Functions can no longer have more than one parameter with the same name.'],
         ], 'Checker/FunctionParametersSameName/test6.php');
     }
 

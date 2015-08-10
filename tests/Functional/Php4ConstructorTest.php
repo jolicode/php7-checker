@@ -36,14 +36,14 @@ class Php4ConstructorTest extends AbstractFunctionalTestCase
     public function testItFindsErrorWithPhp4ConstructorOnly()
     {
         $this->assertErrors([
-            [5, 'Using a PHP 4 constructor is now deprecated'],
+            [5, 'Using a PHP 4 constructor is now deprecated.'],
         ], 'Checker/Php4Constructor/Pikachu.php');
     }
 
     public function testItFindsErrorWithPhp4ConstructorAndRootNamespace()
     {
         $this->assertErrors([
-            [6, 'Using a PHP 4 constructor is now deprecated'],
+            [6, 'Using a PHP 4 constructor is now deprecated.'],
         ], 'Checker/Php4Constructor/Jigglypuff.php');
     }
 }

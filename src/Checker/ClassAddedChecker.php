@@ -58,8 +58,8 @@ class ClassAddedChecker extends AbstractChecker
                 $this->errorCollection->add(new Error(
                     $this->parserContext->getFilename(),
                     $node->getLine(),
-                    sprintf('"%s" cannot be used as class/interface/trait name', $node->name),
-                    'You should either rename your class/trait/interface or put it in a namespace'
+                    sprintf('"%s" cannot be used as class/interface/trait name.', $node->name),
+                    'You should either rename your class/trait/interface or put it in a namespace.'
                 ));
             }
         }

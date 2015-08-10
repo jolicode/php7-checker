@@ -33,7 +33,7 @@ class NewAssignmentByReferenceChecker extends AbstractChecker
                 $this->errorCollection->add(new Error(
                     $this->parserContext->getFilename(),
                     $node->getLine(),
-                    'New objects cannot be assigned by reference'
+                    'New objects cannot be assigned by reference.'
                 ));
             }
         }

@@ -103,8 +103,8 @@ class Php4ConstructorChecker extends AbstractChecker
             $this->errorCollection->add(new Error(
                 $this->parserContext->getFilename(),
                 $this->php4ConstructorLine,
-                'Using a PHP 4 constructor is now deprecated',
-                'You should use the __construct method instead'
+                'Using a PHP 4 constructor is now deprecated.',
+                'You should use the __construct method instead.'
             ));
         }
     }

@@ -68,8 +68,8 @@ class FunctionAddedChecker extends AbstractChecker
                 $this->errorCollection->add(new Error(
                     $this->parserContext->getFilename(),
                     $node->getLine(),
-                    sprintf('"%s" cannot be used as function name', $node->name),
-                    'You should either rename your function or put it in a namespace'
+                    sprintf('"%s" cannot be used as function name.', $node->name),
+                    'You should either rename your function or put it in a namespace.'
                 ));
             }
         }

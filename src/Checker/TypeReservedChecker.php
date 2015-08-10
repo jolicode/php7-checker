@@ -53,13 +53,13 @@ class TypeReservedChecker extends AbstractChecker
             $this->check(
                 $node->name,
                 $node->getLine(),
-                '"%s" is now a reserved type and can no longer be used as the name of a class/interface/trait'
+                '"%s" is now a reserved type and can no longer be used as the name of a class/interface/trait.'
             );
         } elseif ($node instanceof Stmt\Use_ && $node->type === Stmt\Use_::TYPE_NORMAL) {
             $this->check(
                 $node->uses[0]->alias,
                 $node->getLine(),
-                '"%s" is now a reserved type and can no longer be used as an alias'
+                '"%s" is now a reserved type and can no longer be used as an alias.'
             );
         } elseif ($node instanceof Node\Expr\FuncCall
             && $node->name instanceof Node\Name
@@ -74,7 +74,7 @@ class TypeReservedChecker extends AbstractChecker
                 $this->check(
                     $className,
                     $node->getLine(),
-                    '"%s" is now a reserved type and can no longer be used in class_alias()'
+                    '"%s" is now a reserved type and can no longer be used in class_alias().'
                 );
             }
         }
