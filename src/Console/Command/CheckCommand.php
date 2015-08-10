@@ -64,10 +64,12 @@ EOF
             $path = getcwd().DIRECTORY_SEPARATOR.$path;
         }
 
+        $path = rtrim(realpath($path), DIRECTORY_SEPARATOR);
+
         if (is_file($path)) {
             $files = new \ArrayIterator(array(new \SplFileInfo($path)));
-            $total = 1;
         } else {
+            $path .= DIRECTORY_SEPARATOR;
             $files = new Finder();
 
             $files
@@ -78,37 +80,49 @@ EOF
                 ->exclude('vendor')
                 ->in($path)
             ;
-            $total = $files->count();
         }
 
+        $output->writeln(sprintf("\rChecking %s", $path));
+        $total = $files->count();
         $parser = Factory::createParser();
 
-        //$this->stopwatch->start('parseFiles');
         $index = 1;
         /** @var \SplFileInfo $file */
         foreach ($files as $file) {
-            $output->write(sprintf("\rChecking file %s/%s", $index, $total));
+            $output->write(sprintf("\rParsing file %s/%s", $index, $total));
             $parser->parse($file);
             ++$index;
         }
-        //$this->stopwatch->stop('parseFiles');
 
         $output->writeln(PHP_EOL);
 
         $errorCollection = $parser->getErrorCollection();
+        $errorCount = count($errorCollection);
 
-        if (count($errorCollection) > 0) {
-            $message = $formatter->formatBlock('Some errors were found on your code.', 'error', true);
+        if ($errorCount > 0) {
+            $message = $formatter->formatBlock(
+                sprintf(
+                    '%s %s found on your code.',
+                    $errorCount,
+                    $errorCount > 1 ? 'errors were' : 'error was'
+                ),
+                'error',
+                true
+            );
             $output->writeln($message);
             $output->writeln('');
 
             /** @var Error $error */
             foreach ($errorCollection as $error) {
-                $output->writeln('    '.$error->getMessage());
+                $output->writeln(sprintf('    %s', $error->getMessage()));
                 if ($error->getHelp()) {
-                    $output->writeln('    > '.$error->getHelp());
+                    $output->writeln(sprintf('    > %s', $error->getHelp()));
                 }
-                $output->writeln('        <fg=cyan>'.$error->getFilename().'</fg=cyan> on line <fg=cyan>'.$error->getLine().'</fg=cyan>');
+                $output->writeln(sprintf(
+                    '        <fg=cyan>%s</fg=cyan> on line <fg=cyan>%s</fg=cyan>',
+                    str_replace($path, '', $error->getFilename()),
+                    $error->getLine()
+                ));
                 $output->writeln('');
             }
 

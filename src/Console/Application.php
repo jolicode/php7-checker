@@ -11,8 +11,8 @@
 
 namespace Joli\Php7Checker\Console;
 
-use Joli\Php7Checker\Checker\CheckerInterface;
 use Joli\Php7Checker\Console\Command\CheckCommand;
+use Joli\Php7Checker\Parser;
 use Symfony\Component\Console\Application as BaseApplication;
 use Symfony\Component\Console\Input\InputInterface;
 
