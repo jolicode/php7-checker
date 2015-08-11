@@ -13,8 +13,8 @@ namespace Joli\Php7Checker;
 
 use Joli\Php7Checker\Checker\CheckerInterface;
 use Joli\Php7Checker\Error\ErrorCollection;
+use Joli\Php7Checker\Lexer\KeepOriginalValueLexer;
 use PhpParser\Error as PhpParserError;
-use PhpParser\Lexer\Emulative;
 use PhpParser\NodeTraverser;
 use PhpParser\NodeTraverserInterface;
 use PhpParser\NodeVisitor\NameResolver;
@@ -23,7 +23,7 @@ use PhpParser\Parser as PhpParser;
 class Parser
 {
     const VERSION = '0.1.0';
-    
+
     /** @var PhpParser */
     private $parser;
 
@@ -41,7 +41,7 @@ class Parser
      */
     public function __construct(array $checkers)
     {
-        $this->parser = new PhpParser(new Emulative());
+        $this->parser = new PhpParser(new KeepOriginalValueLexer());
         $this->traverser = new NodeTraverser();
         $this->parserContext = new ParserContext();
         $this->errorCollection = new ErrorCollection();

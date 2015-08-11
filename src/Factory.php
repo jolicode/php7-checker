@@ -30,6 +30,7 @@ class Factory
             new \Joli\Php7Checker\Checker\NewAssignmentByReferenceChecker(),
             new \Joli\Php7Checker\Checker\ClassAddedChecker(),
             new \Joli\Php7Checker\Checker\FunctionAddedChecker(),
+            new \Joli\Php7Checker\Checker\IntegerHandlingChangedChecker(),
         );
     }
 
