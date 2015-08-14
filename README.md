@@ -12,31 +12,6 @@ is not open source), you can still have a look to
 
 ## Installation
 
-### Locally
-
-Download the [php7-checker.phar](todo_phar_url) file and store it somewhere on your computer.
-
-#### Globally (manual)
-
-You can run these commands to easily access `php7-checker` from anywhere on
-your system:
-```bash
-wget todo_phar_url -O php7-checker
-```
-
-or with curl:
-```bash
-curl todo_phar_url -o php7-checker
-```
-
-then:
-```bash
-sudo chmod a+x php-cs-fixer
-sudo mv php7-checker /usr/local/bin/php7-checker
-```
-
-Then, just run `php7-checker`.
-
 #### Globally (Composer)
 
 To install php7-checker, install Composer and issue the following command:
@@ -55,8 +30,8 @@ export PATH="$PATH:$HOME/.composer/vendor/bin"
 You can run the checker on a given file or directory:
 
 ```bash
-php php7-checker.phar /path/to/dir
-php php7-checker.phar /path/to/file
+php7-checker /path/to/dir
+php7-checker /path/to/file
 ```
 
 ## Further documentation
