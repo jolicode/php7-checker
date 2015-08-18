@@ -65,15 +65,14 @@ class Parser
     public function parse(\SplFileInfo $file)
     {
         try {
-            // Open the file
-            $file = $file->openFile();
+            $content = file_get_contents($file->getRealPath());
 
-            // Keep the context up to date
-            $this->parserContext->setFilename($file->getRealPath());
+            if (strlen($content) > 0) {
+                // Keep the context up to date
+                $this->parserContext->setFilename($file->getRealPath());
 
-            if ($file->getSize() > 0) {
                 // Parse the file content
-                $stmts = $this->parser->parse($file->fread($file->getSize()));
+                $stmts = $this->parser->parse($content);
 
                 // Traverse the statements
                 $this->traverser->traverse($stmts);
