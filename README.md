@@ -1,14 +1,16 @@
 # php7-checker
 
-php7-checker is a PHP library that parses your code and statically detects
-some errors that could prevent it to run on PHP7.
+**This project is now deprecated in favor of [php7cc](https://github.com/sstalle/php7cc)**.
 
-*Disclamer*: this tool is a static analyzer. As it doesn't run your code it's
+~~php7-checker is a PHP library that parses your code and statically detects
+some errors that could prevent it to run on PHP7.~~
+
+~~*Disclamer*: this tool is a static analyzer. As it doesn't run your code it's
 far from being 100% reliable. If you need to ensure that some code will run on
 PHP 7, nothing will do a better job than a complete test suite run on the
 targeted version of PHP. If you want to test it locally (f.e. because your code
 is not open source), you can still have a look to
-[JoliCi](https://github.com/jolicode/JoliCi).
+[JoliCi](https://github.com/jolicode/JoliCi).~~
 
 ## Installation
 
